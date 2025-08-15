@@ -1,22 +1,22 @@
-
-        // Using let for mutable data
-        let count = 0;
+ // Boolean state to track the current theme
+        let isDarkMode = false;
 
         // DOM selection
-        const button = document.getElementById('counterButton');
-        const message = document.getElementById('message');
+        const body = document.body;
+        const toggleButton = document.getElementById('themeToggle');
 
         // Event handling with arrow function
-        button.addEventListener('click', () => {
-            count++; // Increment count
-            button.textContent = `Click me: ${count}`; // Use backticks for template literals
+        toggleButton.addEventListener('click', () => {
+            isDarkMode = !isDarkMode; // Toggle the boolean state
 
-            // Conditional logic with template literals
-            if (count === 10) {
-                message.textContent = `You reached ${count} clicks!`;
-            } else if (count > 10) {
-                message.textContent = `Keep going! You've clicked ${count} times.`;
+            // Update the theme based on the state
+            if (isDarkMode) {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                toggleButton.textContent = 'Switch to Light Mode';
             } else {
-                message.textContent = ''; // Clear message for counts less than 10
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                toggleButton.textContent = 'Switch to Dark Mode';
             }
         });
