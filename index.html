@@ -3,58 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Light/Dark Mode Toggle</title>
+    <title>Simple Profile Generator</title>
     <style>
         body {
-            margin: 0;
             font-family: Arial, sans-serif;
-            transition: background-color 0.3s, color 0.3s;
+            margin: 20px;
         }
-        .light-mode {
-            background-color: white;
-            color: black;
-        }
-        .dark-mode {
-            background-color: black;
-            color: white;
-        }
-        button {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 10px 20px;
+        input, button {
+            margin: 10px 0;
+            padding: 10px;
             font-size: 16px;
-            cursor: pointer;
+        }
+        .profile {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
     </style>
 </head>
-<body class="light-mode">
-    <button id="themeToggle">Switch to Dark Mode</button>
+<body>
+    <h1>Mini Profile Generator</h1>
+    <label for="name">Name:</label>
+    <input type="text" id="name" placeholder="Enter your name"><br>
+    <label for="age">Age:</label>
+    <input type="number" id="age" placeholder="Enter your age"><br>
+    <label for="color">Favorite Color:</label>
+    <input type="text" id="color" placeholder="Enter your favorite color"><br>
+    <button id="generateProfile">Generate Profile</button>
+
+    <div id="profileOutput" class="profile"></div>
 
     <script>
-        // Boolean state to track the current theme
-        let isDarkMode = false;
-
         // DOM selection
-        const body = document.body;
-        const toggleButton = document.getElementById('themeToggle');
+        const nameInput = document.getElementById('name');
+        const ageInput = document.getElementById('age');
+        const colorInput = document.getElementById('color');
+        const generateButton = document.getElementById('generateProfile');
+        const profileOutput = document.getElementById('profileOutput');
 
         // Event handling with arrow function
-        toggleButton.addEventListener('click', () => {
-            isDarkMode = !isDarkMode; // Toggle the boolean state
+        generateButton.addEventListener('click', () => {
+            const name = nameInput.value.trim();
+            const age = ageInput.value.trim();
+            const color = colorInput.value.trim();
 
-            // Update the theme based on the state
-            if (isDarkMode) {
-                body.classList.remove('light-mode');
-                body.classList.add('dark-mode');
-                toggleButton.textContent = 'Switch to Light Mode';
-            } else {
-                body.classList.remove('dark-mode');
-                body.classList.add('light-mode');
-                toggleButton.textContent = 'Switch to Dark Mode';
+            // Validate input
+            if (!name || !age || !color) {
+                profileOutput.innerHTML = '<p style="color: red;">Please fill out all fields!</p>';
+                return;
             }
+
+            // Generate profile using template literals
+            profileOutput.innerHTML = `
+                <h2>Profile</h2>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Age:</strong> ${age}</p>
+                <p><strong>Favorite Color:</strong> <span style="color: ${color};">${color}</span></p>
+            `;
         });
     </script>
 </body>
 </html>
-
